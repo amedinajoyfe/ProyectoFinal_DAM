@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS Usuarios(
 -- Stored Procedures
 
 DROP PROCEDURE IF EXISTS SpRegistroUsuario;
+DROP PROCEDURE IF EXISTS SpLogin;
 DELIMITER $$
 CREATE PROCEDURE SpRegistroUsuario(	IN _nick VARCHAR(31),
 									IN _password VARCHAR(64),
