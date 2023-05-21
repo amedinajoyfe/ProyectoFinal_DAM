@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,8 +22,9 @@ public class BootGame : MonoBehaviour
     {
         for(int i = 0; i < NumPlayers; i++)
         {
-            GameObject player = new GameObject("Player_" + i);
-            player.AddComponent<Image>(); 
+            GameObject player = new GameObject("Player_" + (i+1));
+            player.AddComponent<Image>();
+            player.AddComponent<PlayerScript>();
             player.GetComponent<Image>().sprite = Sprite.Create(Chips[i], new Rect(0.0f, 0.0f, Chips[i].width, Chips[i].height), new Vector2(0.5f, 0.5f));
             player.transform.SetParent(Map.GetComponent<Canvas>().transform);
 
