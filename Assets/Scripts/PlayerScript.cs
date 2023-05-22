@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    private string _currPosition;
+    private bool _isMoving = false;
+    public bool IsMoving
+    {
+        get
+        {
+            return _isMoving;
+        }
+        set
+        {
+            _isMoving = value;
+        }
+    }
+
+    private string _currPosition = "CentralPlaza";
     public string CurrPosition
     {
         get
@@ -16,9 +29,9 @@ public class PlayerScript : MonoBehaviour
             _currPosition = value;
         }
     }
-    public void Move(Vector2 position)
+    public void Move(Vector2 position, string square)
     {
-        Debug.Log(position);
         this.gameObject.transform.position = position;
+        _currPosition = square;
     }
 }

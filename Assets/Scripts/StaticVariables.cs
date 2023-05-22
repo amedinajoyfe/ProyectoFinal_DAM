@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class StaticVariables : MonoBehaviour
 {
-    
-
-    private void Start()
-    {
-        
-    }
-
     public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
         { "1920 X 1080", new int[]{1920,1080} },
         { "1440 X 900", new int[]{1440,900} },
@@ -25,5 +18,14 @@ public class StaticVariables : MonoBehaviour
         { "PANTALLA COMPLETA", FullScreenMode.ExclusiveFullScreen }
     };
 
-    public static GameObject CurrentPlayer;
+    public static void DisableOutlines()
+    {
+        var ListOutlines = GameObject.FindGameObjectsWithTag("Outlines");
+        foreach (GameObject outline in ListOutlines)
+        {
+            outline.SetActive(false);
+        }
+    }
+
+    public static int CurrentPlayer = 1;
 }

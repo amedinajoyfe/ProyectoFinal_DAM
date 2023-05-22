@@ -17,21 +17,25 @@ public class ButtonsActions : MonoBehaviour
     private int PosRes = 0;
 
     public List<GameObject> EdificiosList;
+    public Dictionary<string, List<GameObject>> Squares;
 
-    public Dictionary<string, List<GameObject>> Squares = new Dictionary<string, List<GameObject>> {
-        //{ "Centro", new List<GameObject>{EdificiosList[1] } },
-        //{ "Ciudad", new List<GameObject>{EdificiosList[0], EdificiosList[5]} },
-        //{ "Supermercado", new List<GameObject>{EdificiosList[0], EdificiosList[11], EdificiosList[6]} },
-        //{ "Mercado", new List<GameObject>{EdificiosList[0]} },
-        //{ "Lago", new List<GameObject>{EdificiosList[0], EdificiosList[10], EdificiosList[9]} },
-        //{ "Casino", new List<GameObject>{EdificiosList[1]} },
-        //{ "Vertedero", new List<GameObject>{EdificiosList[2]} },
-        //{ "Cultivo", new List<GameObject>{EdificiosList[0], EdificiosList[9]} },
-        //{ "Montanna", new List<GameObject>{EdificiosList[7]} },
-        //{ "Restaurante", new List<GameObject>{EdificiosList[4]} },
-        //{ "Bosque", new List<GameObject>{EdificiosList[4]} },
-        //{ "CentroComercial", new List<GameObject>{EdificiosList[2]} }
+    private void Start()
+    {
+        Squares = new Dictionary<string, List<GameObject>> {
+        { "CentralPlaza", new List<GameObject>{EdificiosList[1], EdificiosList[2], EdificiosList[3], EdificiosList[4], EdificiosList[7] } },
+        { "City", new List<GameObject>{EdificiosList[0], EdificiosList[5]} },
+        { "Supermarket", new List<GameObject>{EdificiosList[0], EdificiosList[11], EdificiosList[6]} },
+        { "Market", new List<GameObject>{EdificiosList[0]} },
+        { "Lake", new List<GameObject>{EdificiosList[0], EdificiosList[10], EdificiosList[9]} },
+        { "Casino", new List<GameObject>{EdificiosList[1]} },
+        { "Dumpster", new List<GameObject>{EdificiosList[2]} },
+        { "Vineyard", new List<GameObject>{EdificiosList[0], EdificiosList[8]} },
+        { "Mountains", new List<GameObject>{EdificiosList[7]} },
+        { "Restaurant", new List<GameObject>{EdificiosList[4]} },
+        { "Forest", new List<GameObject>{EdificiosList[4]} },
+        { "ShoppingMall", new List<GameObject>{EdificiosList[2]} }
     };
+}
 
     public void ChangeWindowModeLeft()
     {
@@ -88,16 +92,18 @@ public class ButtonsActions : MonoBehaviour
 
     public void MoveButton()
     {
-
-    }
-
-    public void ClickOutline(GameObject objeto)
-    {
-        GameObject.Find("Player_1").GetComponent<PlayerScript>().Move(objeto.transform.position);
-        var ListOutlines = GameObject.FindGameObjectsWithTag("Outlines");
-        foreach(GameObject outline in ListOutlines)
+        if(!GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving)
         {
-            outline.SetActive(false);
+            foreach (GameObject Square in Squares[GameObject.Find("Player_1").GetComponent<PlayerScript>().CurrPosition])
+            {
+                Square.SetActive(true);
+            }
+            GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving = !GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving;
+        }
+        else
+        {
+            StaticVariables.DisableOutlines();
+            GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving = !GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving;
         }
     }
 }

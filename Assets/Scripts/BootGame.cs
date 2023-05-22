@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BootGame : MonoBehaviour
 {
     public AudioSource GameSong;
+    public event EventHandler BootFinished;
+
     [SerializeField] private Slider SliderVolume;
     [SerializeField] private Canvas Map;
 
     [Header("Chips")]
     [SerializeField] private List<Texture2D> Chips;
+
     void Awake()
     {
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
