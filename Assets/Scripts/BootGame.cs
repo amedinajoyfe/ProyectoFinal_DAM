@@ -6,7 +6,7 @@ using System;
 public class BootGame : MonoBehaviour
 {
     public AudioSource GameSong;
-    public event EventHandler BootFinished;
+    public event Action BootFinished;
 
     [SerializeField] private Slider SliderVolume;
     [SerializeField] private Canvas Map;
@@ -20,6 +20,8 @@ public class BootGame : MonoBehaviour
         Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.MaximizedWindow);
         SpawnChips(4); //This will count number of players
         StartMusic();
+        BootFinished();
+        Destroy(gameObject);
     }
 
     private void SpawnChips(int NumPlayers)
@@ -37,6 +39,8 @@ public class BootGame : MonoBehaviour
             Vector2 StartingPos = i % 2 == 0 ? new Vector2(-55, i>1 ? 55 : -55) : new Vector2(55, i > 1 ? 55 : -55); //Estoy aprendiendo a usar estos por eso hay varios
             rectTransform.localPosition = StartingPos;
             rectTransform.sizeDelta = new Vector2(45, 45);
+
+            StaticVariables.Players.Add(player);
         }
     }
 

@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class TurnManager : MonoBehaviour
 {
     public BootGame ScriptBoot;
-    void Start()
+    void Awake()
     {
-        ScriptBoot.BootFinished += (sender, args) => { Placeholder(); };
+        ScriptBoot.BootFinished += () => { ChooseTurn(); };
     }
 
-    private void Placeholder()
+    private void ChooseTurn()
     {
-
+        StaticVariables.CurrentPlayer = Random.Range(0, StaticVariables.Players.Count);
     }
 }

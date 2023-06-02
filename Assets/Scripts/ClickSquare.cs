@@ -6,8 +6,10 @@ public class ClickSquare : MonoBehaviour
 {
     public void ClickOutline(GameObject objeto)
     {
-        GameObject.Find("Player_1").GetComponent<PlayerScript>().Move(objeto.transform.position, objeto.transform.parent.name);
+        GameObject PlayerToMove = StaticVariables.Players[StaticVariables.CurrentPlayer];
+        PlayerToMove.GetComponent<PlayerScript>().Move(objeto.transform.position, objeto.transform.parent.name);
         StaticVariables.DisableOutlines();
-        GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving = false;
+        PlayerToMove.GetComponent<PlayerScript>().IsMoving = false;
+        StaticVariables.CurrentPlayer = StaticVariables.CurrentPlayer == StaticVariables.Players.Count - 1 ? 0 : StaticVariables.CurrentPlayer += 1;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StaticVariables : MonoBehaviour
 {
+    public static List<GameObject> Players = new List<GameObject>();
+
     public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
         { "1920 X 1080", new int[]{1920,1080} },
         { "1440 X 900", new int[]{1440,900} },
@@ -27,5 +29,5 @@ public class StaticVariables : MonoBehaviour
         }
     }
 
-    public static int CurrentPlayer = 1;
+    public static int CurrentPlayer = 0;
 }

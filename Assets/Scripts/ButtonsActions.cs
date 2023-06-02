@@ -92,18 +92,19 @@ public class ButtonsActions : MonoBehaviour
 
     public void MoveButton()
     {
-        if(!GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving)
+        GameObject PlayerToMove = StaticVariables.Players[StaticVariables.CurrentPlayer];
+        if (!PlayerToMove.GetComponent<PlayerScript>().IsMoving)
         {
-            foreach (GameObject Square in Squares[GameObject.Find("Player_1").GetComponent<PlayerScript>().CurrPosition])
+            foreach (GameObject Square in Squares[PlayerToMove.GetComponent<PlayerScript>().CurrPosition])
             {
                 Square.SetActive(true);
             }
-            GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving = !GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving;
+            PlayerToMove.GetComponent<PlayerScript>().IsMoving = !PlayerToMove.GetComponent<PlayerScript>().IsMoving;
         }
         else
         {
             StaticVariables.DisableOutlines();
-            GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving = !GameObject.Find("Player_1").GetComponent<PlayerScript>().IsMoving;
+            PlayerToMove.GetComponent<PlayerScript>().IsMoving = !PlayerToMove.GetComponent<PlayerScript>().IsMoving;
         }
     }
 }
