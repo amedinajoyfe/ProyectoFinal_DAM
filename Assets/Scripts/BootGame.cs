@@ -9,7 +9,7 @@ public class BootGame : MonoBehaviour
     public event Action BootFinished;
 
     [SerializeField] private Slider SliderVolume;
-    [SerializeField] private Canvas Map;
+    [SerializeField] private GameObject ChipParent;
 
     [Header("Chips")]
     [SerializeField] private List<Texture2D> Chips;
@@ -28,11 +28,12 @@ public class BootGame : MonoBehaviour
     {
         for(int i = 0; i < NumPlayers; i++)
         {
-            GameObject player = new GameObject("Player_" + (i+1));
+            GameObject player = new("Player_" + (i+1));
             player.AddComponent<Image>();
             player.AddComponent<PlayerScript>();
             player.GetComponent<Image>().sprite = Sprite.Create(Chips[i], new Rect(0.0f, 0.0f, Chips[i].width, Chips[i].height), new Vector2(0.5f, 0.5f));
-            player.transform.SetParent(Map.GetComponent<Canvas>().transform);
+            player.GetComponent<PlayerScript>().Name = "Player" + (i + 1);
+            player.transform.SetParent(ChipParent.transform);
 
             RectTransform rectTransform;
             rectTransform = player.GetComponent<RectTransform>();

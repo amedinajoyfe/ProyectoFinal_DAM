@@ -1308,6 +1308,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &174558534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174558535}
+  m_Layer: 5
+  m_Name: Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &174558535
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174558534}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 268965379}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &189592319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,7 +1955,7 @@ GameObject:
   - component: {fileID: 255324592}
   m_Layer: 5
   m_Name: Item2
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2125,10 +2161,11 @@ RectTransform:
   m_Children:
   - {fileID: 406674516}
   - {fileID: 2021461875}
-  - {fileID: 1296748519}
-  - {fileID: 1121744410}
-  - {fileID: 1384976570}
   - {fileID: 876358732}
+  - {fileID: 174558535}
+  - {fileID: 1384976570}
+  - {fileID: 1121744410}
+  - {fileID: 1296748519}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2535,7 +2572,7 @@ GameObject:
   - component: {fileID: 334753235}
   - component: {fileID: 334753234}
   m_Layer: 5
-  m_Name: Opponent1
+  m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3646,7 +3683,7 @@ GameObject:
   - component: {fileID: 553539337}
   - component: {fileID: 553539336}
   m_Layer: 5
-  m_Name: Opponent2
+  m_Name: Player3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3726,7 +3763,7 @@ GameObject:
   - component: {fileID: 585878931}
   m_Layer: 5
   m_Name: Item3
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3937,7 +3974,7 @@ GameObject:
   - component: {fileID: 603662039}
   m_Layer: 5
   m_Name: Item1
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4619,7 +4656,7 @@ GameObject:
   - component: {fileID: 747629132}
   m_Layer: 5
   m_Name: Item2
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4851,7 +4888,7 @@ GameObject:
   - component: {fileID: 836558763}
   - component: {fileID: 836558762}
   m_Layer: 5
-  m_Name: Opponent3
+  m_Name: Player4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5492,7 +5529,7 @@ GameObject:
   - component: {fileID: 913564379}
   - component: {fileID: 913564378}
   m_Layer: 5
-  m_Name: User
+  m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7454,7 +7491,7 @@ GameObject:
   - component: {fileID: 1165117890}
   m_Layer: 5
   m_Name: Item2
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7883,7 +7920,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1499928047}
         m_TargetAssemblyTypeName: ButtonsActions, Assembly-CSharp
-        m_MethodName: MoveButton
+        m_MethodName: TakeObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8893,7 +8930,7 @@ GameObject:
   - component: {fileID: 1349792402}
   m_Layer: 5
   m_Name: Item3
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9506,7 +9543,7 @@ GameObject:
   - component: {fileID: 1482458563}
   m_Layer: 5
   m_Name: Item1
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9669,7 +9706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d217e1928344941bf954fa8c68dd57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptBoot: {fileID: 0}
+  ScriptBoot: {fileID: 1842756629}
 --- !u!1 &1502734262
 GameObject:
   m_ObjectHideFlags: 0
@@ -9894,7 +9931,7 @@ GameObject:
   - component: {fileID: 1555095796}
   m_Layer: 5
   m_Name: Item2
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11100,7 +11137,7 @@ GameObject:
   - component: {fileID: 1780708514}
   m_Layer: 5
   m_Name: Item3
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11381,7 +11418,7 @@ GameObject:
   - component: {fileID: 1824178253}
   m_Layer: 5
   m_Name: Item1
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11608,7 +11645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameSong: {fileID: 1287664959}
   SliderVolume: {fileID: 1670827600}
-  Map: {fileID: 268965378}
+  ChipParent: {fileID: 174558534}
   Chips:
   - {fileID: 2800000, guid: e45d25013402c33449426583218f0a28, type: 3}
   - {fileID: 2800000, guid: e71c6ef09acd0f04fa25d929c1dcb7cc, type: 3}
@@ -12197,7 +12234,7 @@ GameObject:
   - component: {fileID: 2002991195}
   m_Layer: 5
   m_Name: Item1
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12705,7 +12742,7 @@ GameObject:
   - component: {fileID: 2118130868}
   m_Layer: 5
   m_Name: Item3
-  m_TagString: Untagged
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

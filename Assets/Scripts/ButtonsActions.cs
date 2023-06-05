@@ -18,6 +18,7 @@ public class ButtonsActions : MonoBehaviour
 
     public List<GameObject> EdificiosList;
     public Dictionary<string, List<GameObject>> Squares;
+    public Dictionary<string, StaticVariables.Items> PossibleObjects;
 
     private void Start()
     {
@@ -34,8 +35,22 @@ public class ButtonsActions : MonoBehaviour
         { "Restaurant", new List<GameObject>{EdificiosList[4]} },
         { "Forest", new List<GameObject>{EdificiosList[4]} },
         { "ShoppingMall", new List<GameObject>{EdificiosList[2]} }
-    };
-}
+        };
+
+        PossibleObjects = new Dictionary<string, StaticVariables.Items> {
+        { "City", StaticVariables.Items.Ball },
+        { "Supermarket", StaticVariables.Items.Soap },
+        { "Market", StaticVariables.Items.Clothes },
+        { "Lake", StaticVariables.Items.Fish },
+        { "Casino", StaticVariables.Items.CasinoChip },
+        { "Dumpster", StaticVariables.Items.Bolt },
+        { "Vineyard", StaticVariables.Items.Apple },
+        { "Mountains", StaticVariables.Items.GoldIngot },
+        { "Restaurant", StaticVariables.Items.Food },
+        { "Forest", StaticVariables.Items.WoodPlank },
+        { "ShoppingMall", StaticVariables.Items.Book }
+        };
+    }
 
     public void ChangeWindowModeLeft()
     {
@@ -92,19 +107,35 @@ public class ButtonsActions : MonoBehaviour
 
     public void MoveButton()
     {
-        GameObject PlayerToMove = StaticVariables.Players[StaticVariables.CurrentPlayer];
-        if (!PlayerToMove.GetComponent<PlayerScript>().IsMoving)
+        PlayerScript PlayerToMove = StaticVariables.Players[StaticVariables.CurrentPlayer].GetComponent<PlayerScript>();
+
+        if (!PlayerToMove.IsMoving)
         {
-            foreach (GameObject Square in Squares[PlayerToMove.GetComponent<PlayerScript>().CurrPosition])
+            foreach (GameObject Square in Squares[PlayerToMove.CurrPosition])
             {
                 Square.SetActive(true);
             }
-            PlayerToMove.GetComponent<PlayerScript>().IsMoving = !PlayerToMove.GetComponent<PlayerScript>().IsMoving;
+            PlayerToMove.IsMoving = !PlayerToMove.IsMoving;
         }
         else
         {
             StaticVariables.DisableOutlines();
-            PlayerToMove.GetComponent<PlayerScript>().IsMoving = !PlayerToMove.GetComponent<PlayerScript>().IsMoving;
+            PlayerToMove.IsMoving = !PlayerToMove.IsMoving;
+        }
+    }
+    
+    public void TakeObject()
+    {
+        PlayerScript PlayerToAdd = StaticVariables.Players[StaticVariables.CurrentPlayer].GetComponent<PlayerScript>();
+        if (PlayerToAdd.CurrPosition != "CentralPlaza")
+        {
+            PlayerToAdd.AddObject(PossibleObjects[PlayerToAdd.CurrPosition]);
+            PlayerToAdd.GetObjects();
+            StaticVariables.CurrentPlayer = StaticVariables.CurrentPlayer == StaticVariables.Players.Count - 1 ? 0 : StaticVariables.CurrentPlayer += 1;
+        }
+        else
+        {
+            Debug.Log("La plaza no da objetos!!!");
         }
     }
 }

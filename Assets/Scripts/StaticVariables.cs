@@ -6,7 +6,22 @@ public class StaticVariables : MonoBehaviour
 {
     public static List<GameObject> Players = new List<GameObject>();
 
-    public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
+    public enum Items
+    {
+        Apple,
+        Ball,
+        Bolt,
+        Book,
+        CasinoChip,
+        Clothes,
+        Fish,
+        Food,
+        GoldIngot,
+        Soap,
+        WoodPlank
+    }
+
+public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
         { "1920 X 1080", new int[]{1920,1080} },
         { "1440 X 900", new int[]{1440,900} },
         { "1366 X 768", new int[]{1366,768} },
