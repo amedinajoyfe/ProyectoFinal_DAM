@@ -11,6 +11,10 @@ public class ButtonsActions : MonoBehaviour
     [SerializeField] private TMP_Text FeedbackScreenMode;
     [SerializeField] private TMP_Text FeedbackScreenResolution;
     [SerializeField] private GameObject ChatCanvas;
+    [SerializeField] private GameObject Menu;
+    [SerializeField] private GameObject MenuExit;
+    [SerializeField] private GameObject MenuOptions;
+
     public AudioSource GameSong;
 
     private int PosMode = 0;
@@ -52,10 +56,36 @@ public class ButtonsActions : MonoBehaviour
         };
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(Menu.activeSelf)
+            {
+                Menu.SetActive(false);
+                return;
+            }
+            else if(MenuExit.activeSelf)
+            {
+                MenuExit.SetActive(false);
+            }
+            else if(MenuOptions.activeSelf)
+            {
+                MenuOptions.SetActive(false);
+            }
+            else
+            {
+                Menu.SetActive(true);
+                return;
+            }
+            Menu.SetActive(true);
+        }
+    }
+
     public void ChangeWindowModeLeft()
     {
         PosMode = PosMode == 0 ? 2 : PosMode -= 1; //If pos equal to 0 then go to 2, else subtract 1
-        FeedbackScreenMode.text = StaticVariables.ScreenMode.ElementAt(PosMode).Key;
+        FeedbackScreenMode.text = StaticVariables.Instance.ScreenMode.ElementAt(PosMode).Key;
 #if !UNITY_EDITOR
         Screen.fullScreenMode = ScreenMode.ElementAt(PosMode).Value;
 #endif
@@ -64,7 +94,7 @@ public class ButtonsActions : MonoBehaviour
     public void ChangeWindowModeRight()
     {
         PosMode = PosMode == 2 ? 0 : PosMode += 1; //If pos equal to 2 then go to 0, else add 1
-        FeedbackScreenMode.text = StaticVariables.ScreenMode.ElementAt(PosMode).Key;
+        FeedbackScreenMode.text = StaticVariables.Instance.ScreenMode.ElementAt(PosMode).Key;
 #if !UNITY_EDITOR
         Screen.fullScreenMode = ScreenMode.ElementAt(PosMode).Value;
 #endif
@@ -73,7 +103,7 @@ public class ButtonsActions : MonoBehaviour
     public void ChangeScreenResolutionLeft()
     {
         PosRes = PosRes == 0 ? 4 : PosRes -= 1;
-        FeedbackScreenResolution.text = StaticVariables.ScreenResolution.ElementAt(PosRes).Key;
+        FeedbackScreenResolution.text = StaticVariables.Instance.ScreenResolution.ElementAt(PosRes).Key;
 #if !UNITY_EDITOR
         Screen.SetResolution(ScreenResolution.ElementAt(PosRes).Value[0], ScreenResolution.ElementAt(PosRes).Value[1], Screen.fullScreenMode);
 #endif
@@ -82,7 +112,7 @@ public class ButtonsActions : MonoBehaviour
     public void ChangeScreenResolutionRight()
     {
         PosRes = PosRes == 4 ? 0 : PosRes += 1;
-        FeedbackScreenResolution.text = StaticVariables.ScreenResolution.ElementAt(PosRes).Key;
+        FeedbackScreenResolution.text = StaticVariables.Instance.ScreenResolution.ElementAt(PosRes).Key;
 #if !UNITY_EDITOR
         Screen.SetResolution(ScreenResolution.ElementAt(PosRes).Value[0], ScreenResolution.ElementAt(PosRes).Value[1], Screen.fullScreenMode);
 #endif
@@ -107,7 +137,7 @@ public class ButtonsActions : MonoBehaviour
 
     public void MoveButton()
     {
-        PlayerScript PlayerToMove = StaticVariables.Players[StaticVariables.CurrentPlayer].GetComponent<PlayerScript>();
+        PlayerScript PlayerToMove = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
 
         if (!PlayerToMove.IsMoving)
         {
@@ -119,19 +149,24 @@ public class ButtonsActions : MonoBehaviour
         }
         else
         {
-            StaticVariables.DisableOutlines();
+            StaticVariables.Instance.DisableOutlines();
             PlayerToMove.IsMoving = !PlayerToMove.IsMoving;
         }
     }
     
     public void TakeObject()
     {
-        PlayerScript PlayerToAdd = StaticVariables.Players[StaticVariables.CurrentPlayer].GetComponent<PlayerScript>();
+        PlayerScript PlayerToAdd = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
+        if(PlayerToAdd.IsMoving)
+        {
+            StaticVariables.Instance.DisableOutlines();
+            PlayerToAdd.IsMoving = false;
+        }
+        
         if (PlayerToAdd.CurrPosition != "CentralPlaza")
         {
             PlayerToAdd.AddObject(PossibleObjects[PlayerToAdd.CurrPosition]);
             PlayerToAdd.GetObjects();
-            StaticVariables.CurrentPlayer = StaticVariables.CurrentPlayer == StaticVariables.Players.Count - 1 ? 0 : StaticVariables.CurrentPlayer += 1;
         }
         else
         {

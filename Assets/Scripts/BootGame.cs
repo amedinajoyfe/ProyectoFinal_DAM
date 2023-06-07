@@ -16,6 +16,8 @@ public class BootGame : MonoBehaviour
 
     void Awake()
     {
+        //StaticVariables.Instance.Players = new List<GameObject>();
+
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.MaximizedWindow);
         SpawnChips(4); //This will count number of players
@@ -29,6 +31,7 @@ public class BootGame : MonoBehaviour
         for(int i = 0; i < NumPlayers; i++)
         {
             GameObject player = new("Player_" + (i+1));
+
             player.AddComponent<Image>();
             player.AddComponent<PlayerScript>();
             player.GetComponent<Image>().sprite = Sprite.Create(Chips[i], new Rect(0.0f, 0.0f, Chips[i].width, Chips[i].height), new Vector2(0.5f, 0.5f));
@@ -41,7 +44,7 @@ public class BootGame : MonoBehaviour
             rectTransform.localPosition = StartingPos;
             rectTransform.sizeDelta = new Vector2(45, 45);
 
-            StaticVariables.Players.Add(player);
+            StaticVariables.Instance.Players.Add(player);
         }
     }
 

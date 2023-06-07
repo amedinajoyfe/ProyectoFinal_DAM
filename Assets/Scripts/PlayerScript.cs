@@ -6,7 +6,26 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     List<Image> ItemImages = new List<Image>();
+    List<Image> NumberImages = new List<Image>();
 
+    Image NumberSign;
+
+    private int _turnsLeft;
+    public int TurnsLeft
+    {
+        get
+        {
+            return _turnsLeft;
+        }
+        set
+        {
+            _turnsLeft = value;
+            if(NumberSign != null)
+            {
+                NumberSign.sprite = Resources.Load<Sprite>("Sign" + TurnsLeft.ToString());
+            }
+        }
+    }
     public string Name { get; set; } 
 
     private bool _isMoving = false;
@@ -54,6 +73,7 @@ public class PlayerScript : MonoBehaviour
         {
             _objects.Add(_obj);
             ItemImages[_objects.Count - 1].sprite = Resources.Load<Sprite>(_obj.ToString());
+            TurnManager.Instance.PassTurn(this);
         }
         else
         {
@@ -63,8 +83,9 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
+        NumberSign = GameObject.Find("ActionsLeft").GetComponent<Image>();
+        NumberSign.sprite = Resources.Load<Sprite>("Sign" + StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().TurnsLeft.ToString());
         GameObject UiPicture = GameObject.Find(Name);
-        Debug.Log(Name + ", Encontrado: " + GameObject.Find(Name));
         foreach (Transform child in UiPicture.transform)
         {
             ItemImages.Add(child.gameObject.GetComponent<Image>());

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class StaticVariables : MonoBehaviour
 {
-    public static List<GameObject> Players = new List<GameObject>();
+    public static StaticVariables Instance { get; private set; }
+
+    public List<GameObject> Players;
 
     public enum Items
     {
@@ -21,7 +23,7 @@ public class StaticVariables : MonoBehaviour
         WoodPlank
     }
 
-public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
+    public Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
         { "1920 X 1080", new int[]{1920,1080} },
         { "1440 X 900", new int[]{1440,900} },
         { "1366 X 768", new int[]{1366,768} },
@@ -29,13 +31,13 @@ public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string
         { "720 X 480", new int[]{720,480} }
     };
 
-    public static Dictionary<string, FullScreenMode> ScreenMode = new Dictionary<string, FullScreenMode> {
+    public Dictionary<string, FullScreenMode> ScreenMode = new Dictionary<string, FullScreenMode> {
         { "VENTANA SIN BORDES", FullScreenMode.FullScreenWindow },
         { "MODO VENTANA", FullScreenMode.Windowed },
         { "PANTALLA COMPLETA", FullScreenMode.ExclusiveFullScreen }
     };
 
-    public static void DisableOutlines()
+    public void DisableOutlines()
     {
         var ListOutlines = GameObject.FindGameObjectsWithTag("Outlines");
         foreach (GameObject outline in ListOutlines)
@@ -43,6 +45,28 @@ public static Dictionary<string, int[]> ScreenResolution = new Dictionary<string
             outline.SetActive(false);
         }
     }
+    private int _currentPlayer = 0;
+    public int CurrentPlayer
+    {
+        get
+        {
+            return _currentPlayer;
+        }
+        set
+        {
+            _currentPlayer = value;
+        }
+    }
 
-    public static int CurrentPlayer = 0;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 }
