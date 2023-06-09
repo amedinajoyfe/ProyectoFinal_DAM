@@ -20,7 +20,7 @@ public class BootGame : MonoBehaviour
 
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.MaximizedWindow);
-        SpawnChips(4); //This will count number of players
+        SpawnChips(2); //This will count number of players
         StartMusic();
         BootFinished();
         Destroy(gameObject);
@@ -36,6 +36,22 @@ public class BootGame : MonoBehaviour
             player.AddComponent<PlayerScript>();
             player.GetComponent<Image>().sprite = Sprite.Create(Chips[i], new Rect(0.0f, 0.0f, Chips[i].width, Chips[i].height), new Vector2(0.5f, 0.5f));
             player.GetComponent<PlayerScript>().Name = "Player" + (i + 1);
+
+            switch(i)
+            {
+                case 0:
+                    player.GetComponent<PlayerScript>().Colour = "Rojo";
+                    break;
+                case 1:
+                    player.GetComponent<PlayerScript>().Colour = "Azul";
+                    break;
+                case 2:
+                    player.GetComponent<PlayerScript>().Colour = "Verde";
+                    break;
+                case 3:
+                    player.GetComponent<PlayerScript>().Colour = "Amarillo";
+                    break;
+            }
             player.transform.SetParent(ChipParent.transform);
 
             RectTransform rectTransform;

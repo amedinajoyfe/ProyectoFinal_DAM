@@ -7,8 +7,11 @@ public class PlayerScript : MonoBehaviour
 {
     List<Image> ItemImages = new List<Image>();
     List<Image> NumberImages = new List<Image>();
+    public List<string> Missions = new List<string>();
 
     Image NumberSign;
+
+    public string Colour { get; set; }
 
     private int _turnsLeft;
     public int TurnsLeft
@@ -56,15 +59,19 @@ public class PlayerScript : MonoBehaviour
 
     public List<StaticVariables.Items> _objects = new List<StaticVariables.Items>();
 
-    public string[] GetObjects()
+    public void AddMission(string mission)
     {
-        List<string> ReturnObjects = new List<string>();
-        foreach (StaticVariables.Items item in _objects)
+        Missions.Add(mission);
+
+        foreach(string miss in Missions)
         {
-            Debug.Log(item.ToString());
-            ReturnObjects.Add(item.ToString());
+            Debug.Log(miss);
         }
-        return ReturnObjects.ToArray();
+    }
+
+    public List<StaticVariables.Items> GetObjects()
+    {
+        return _objects;
     }
 
     public void AddObject(StaticVariables.Items _obj)

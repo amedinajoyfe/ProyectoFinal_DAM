@@ -15,6 +15,8 @@ public class ButtonsActions : MonoBehaviour
     [SerializeField] private GameObject MenuExit;
     [SerializeField] private GameObject MenuOptions;
 
+    [SerializeField] private Animator ObjectObtained;
+
     public AudioSource GameSong;
 
     private int PosMode = 0;
@@ -135,6 +137,30 @@ public class ButtonsActions : MonoBehaviour
         }
     }
 
+    public void CompleteMission()
+    {
+        PlayerScript PlayerWithQuest = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
+        if (PlayerWithQuest.Missions.Count > 0)
+        {
+            if (PlayerWithQuest.Missions.Any(Mission => StaticVariables.Instance.Missions[Mission].Key == PlayerWithQuest.CurrPosition) && PlayerWithQuest.Missions.Any(Mission => PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[Mission].Value)))
+            {
+                Debug.Log("You can complete a quest");
+            }
+            else if(PlayerWithQuest.Missions.Any(Mission => StaticVariables.Instance.Missions[Mission].Key == PlayerWithQuest.CurrPosition))
+            {
+                Debug.Log("You lack the necessary items");
+            }
+            else
+            {
+                Debug.Log("No quests here");
+            }
+        }
+        else
+        {
+            Debug.Log("You dont have missions");
+        }
+    }
+
     public void MoveButton()
     {
         PlayerScript PlayerToMove = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
@@ -167,10 +193,20 @@ public class ButtonsActions : MonoBehaviour
         {
             PlayerToAdd.AddObject(PossibleObjects[PlayerToAdd.CurrPosition]);
             PlayerToAdd.GetObjects();
+            ObjectObtained.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(PossibleObjects[PlayerToAdd.CurrPosition].ToString());
+            StartCoroutine(AnimateObjectObtained());
+            StaticVariables.Instance.DisableButtons();
         }
         else
         {
             Debug.Log("La plaza no da objetos!!!");
         }
+    }
+
+    private IEnumerator AnimateObjectObtained()
+    {
+        ObjectObtained.SetBool("Appearing", true);
+        yield return new WaitForSeconds(1.8f);
+        ObjectObtained.SetBool("Appearing", false);
     }
 }

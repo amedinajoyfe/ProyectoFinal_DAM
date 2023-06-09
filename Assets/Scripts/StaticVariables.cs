@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StaticVariables : MonoBehaviour
 {
@@ -22,6 +23,17 @@ public class StaticVariables : MonoBehaviour
         Soap,
         WoodPlank
     }
+
+    public Dictionary<string, KeyValuePair<string, Items>> Missions = new Dictionary<string, KeyValuePair<string, Items>> {
+        { "Food to city", new KeyValuePair<string, Items>("City", Items.Food) },
+        { "Fish to market", new KeyValuePair<string, Items>("Market", Items.Fish) },
+        { "Clothes to supermarket", new KeyValuePair<string, Items>("Supermarket", Items.Clothes) },
+        { "Gold to restaurant", new KeyValuePair<string, Items>("Restaurant", Items.GoldIngot) },
+        { "Food to dumpster", new KeyValuePair<string, Items>("Dumpster", Items.Food) },
+        { "Apple to shopping mall", new KeyValuePair<string, Items>("ShoppingMall", Items.Apple) },
+        { "Soap to city", new KeyValuePair<string, Items>("City", Items.Soap) },
+        { "Apple to lake", new KeyValuePair<string, Items>("Lake", Items.Apple) },
+    };
 
     public Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
         { "1920 X 1080", new int[]{1920,1080} },
@@ -45,6 +57,32 @@ public class StaticVariables : MonoBehaviour
             outline.SetActive(false);
         }
     }
+
+    public void DisableButtons()
+    {
+        var Buttons = FindObjectsOfType<Button>();
+
+        foreach(Button Btn in Buttons)
+        {
+            Btn.interactable = false;
+        }
+
+        StartCoroutine(ReenableButtons());
+    }
+
+    private IEnumerator ReenableButtons()
+    {
+        var Buttons = FindObjectsOfType<Button>();
+
+        yield return new WaitForSeconds(1.85f);
+
+        foreach (Button Btn in Buttons)
+        {
+            Btn.interactable = true;
+        }
+
+    }
+
     private int _currentPlayer = 0;
     public int CurrentPlayer
     {
