@@ -142,17 +142,23 @@ public class ButtonsActions : MonoBehaviour
         PlayerScript PlayerWithQuest = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
         if (PlayerWithQuest.Missions.Count > 0)
         {
-            if (PlayerWithQuest.Missions.Any(Mission => StaticVariables.Instance.Missions[Mission].Key == PlayerWithQuest.CurrPosition) && PlayerWithQuest.Missions.Any(Mission => PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[Mission].Value)))
+            foreach(string Mission in PlayerWithQuest.Missions)
             {
-                Debug.Log("You can complete a quest");
-            }
-            else if(PlayerWithQuest.Missions.Any(Mission => StaticVariables.Instance.Missions[Mission].Key == PlayerWithQuest.CurrPosition))
-            {
-                Debug.Log("You lack the necessary items");
-            }
-            else
-            {
-                Debug.Log("No quests here");
+                if(StaticVariables.Instance.Missions[Mission].Key == PlayerWithQuest.CurrPosition)
+                {
+                    if (PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[Mission].Value))
+                    {
+                        PlayerWithQuest.AddPoints(1);
+                    }
+                    else
+                    {
+                        Debug.Log("You lack the necessary items");
+                    }
+                }
+                else
+                {
+                    Debug.Log("You don't have a mission here");
+                }
             }
         }
         else

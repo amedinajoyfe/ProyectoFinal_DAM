@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Outlines
   - ItemSlot
+  - Frame
   layers:
   - Default
   - TransparentFX

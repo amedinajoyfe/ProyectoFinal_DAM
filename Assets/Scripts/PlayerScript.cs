@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,13 @@ public class PlayerScript : MonoBehaviour
     public List<string> Missions = new List<string>();
 
     Image NumberSign;
+    GameObject UiPicture;
+    Image PointCounter;
 
+    public int Points { get; set; }
     public string Colour { get; set; }
+
+    public int PlayerNumber { get; set; }
 
     private int _turnsLeft;
     public int TurnsLeft
@@ -92,11 +98,19 @@ public class PlayerScript : MonoBehaviour
     {
         NumberSign = GameObject.Find("ActionsLeft").GetComponent<Image>();
         NumberSign.sprite = Resources.Load<Sprite>("Sign" + StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().TurnsLeft.ToString());
-        GameObject UiPicture = GameObject.Find(Name);
+        UiPicture = GameObject.Find(Name);
+        PointCounter = UiPicture.transform.GetChild(3).GetChild(1).GetComponent<Image>();
+
         foreach (Transform child in UiPicture.transform)
         {
             ItemImages.Add(child.gameObject.GetComponent<Image>());
         }
+    }
+
+    public void AddPoints(int points)
+    {
+        this.Points += points;
+        PointCounter.sprite = Resources.Load<Sprite>("SignScore" + Points);
     }
 
     public void Move(Vector2 position, string square)
