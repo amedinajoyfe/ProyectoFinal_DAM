@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -29,13 +30,13 @@ public class PlayerScript : MonoBehaviour
         set
         {
             _turnsLeft = value;
-            if(NumberSign != null)
+            if (NumberSign != null)
             {
                 NumberSign.sprite = Resources.Load<Sprite>("Sign" + TurnsLeft.ToString());
             }
         }
     }
-    public string Name { get; set; } 
+    public string Name { get; set; }
 
     private bool _isMoving = false;
     public bool IsMoving
@@ -65,14 +66,48 @@ public class PlayerScript : MonoBehaviour
 
     public List<StaticVariables.Items> _objects = new List<StaticVariables.Items>();
 
-    public void AddMission(string mission)
+    public int AddMission(string mission)
     {
+        if (Missions.Count > 2)
+        {
+            Debug.Log("You already have missions");
+            return -2;
+        }
+
+        if(Missions.Contains(mission))
+        {
+            return -1;
+        }
+
+        GameObject NewMission = Instantiate(StaticVariables.Instance.MissionPrefab);
+        NewMission.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(StaticVariables.Instance.Missions[mission].Value.ToString());
+        NewMission.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(StaticVariables.Instance.Missions[mission].Key);
+        NewMission.transform.GetChild(2).GetComponent<TMP_Text>().text = mission;
+        NewMission.transform.SetParent(UiPicture.transform.GetChild(4));
+
+        RectTransform rectTransform;
+        Vector2 StartingPos;
+        rectTransform = NewMission.GetComponent<RectTransform>();
+
+            
+        if(Missions.Count == 0)
+        {
+            StartingPos = new Vector2(-370, 0);
+        }
+        else if(Missions.Count == 1)
+        {
+            StartingPos = new Vector2(0, 0);
+        }
+        else
+        {
+            StartingPos = new Vector2(370, 0);
+        }
+            
+        rectTransform.localPosition = StartingPos;
+        rectTransform.localScale = new Vector2(1.1f, 1.1f);
         Missions.Add(mission);
 
-        foreach(string miss in Missions)
-        {
-            Debug.Log(miss);
-        }
+        return 0;
     }
 
     public List<StaticVariables.Items> GetObjects()
@@ -82,7 +117,7 @@ public class PlayerScript : MonoBehaviour
 
     public void AddObject(StaticVariables.Items _obj)
     {
-        if(_objects.Count < 3)
+        if (_objects.Count < 3)
         {
             _objects.Add(_obj);
             ItemImages[_objects.Count - 1].sprite = Resources.Load<Sprite>(_obj.ToString());
@@ -92,6 +127,11 @@ public class PlayerScript : MonoBehaviour
         {
             Debug.Log("Has alcanzado el máximo de objetos");
         }
+    }
+
+    public void MissionBoard()
+    {
+        UiPicture.transform.GetChild(4).gameObject.SetActive(!UiPicture.transform.GetChild(4).gameObject.activeSelf);
     }
 
     private void Start()

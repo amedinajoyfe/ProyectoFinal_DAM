@@ -209,6 +209,11 @@ public class ButtonsActions : MonoBehaviour
         }
     }
 
+    public void ToggleMissionBoard()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().MissionBoard();
+    }
+
     private IEnumerator AnimateObjectObtained()
     {
         ObjectObtained.SetBool("Appearing", true);

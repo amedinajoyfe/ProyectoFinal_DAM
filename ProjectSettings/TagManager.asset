@@ -7,6 +7,7 @@ TagManager:
   - Outlines
   - ItemSlot
   - Frame
+  - MissionBoard
   layers:
   - Default
   - TransparentFX

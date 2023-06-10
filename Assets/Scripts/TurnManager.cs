@@ -66,7 +66,12 @@ public class TurnManager : MonoBehaviour
 
         if (PlayerToChange.TurnsLeft == 1)
         {
-            PlayerList[CurrPlayer].GetComponent<PlayerScript>().AddMission(StaticVariables.Instance.Missions.ElementAt(Random.Range(0, 5)).Key);
+            int response;
+            do
+            {
+                response = PlayerList[CurrPlayer].GetComponent<PlayerScript>().AddMission(StaticVariables.Instance.Missions.ElementAt(Random.Range(0, 5)).Key);
+            } while (response == -1);
+
             StaticVariables.Instance.CurrentPlayer = CurrPlayer == PlayerList.Count - 1 ? 0 : CurrPlayer += 1;
             PlayerList[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().TurnsLeft = RollActions();
             ChangeTurnSign.transform.GetChild(0).GetComponent<TMP_Text>().text = "Turno del jugador " + PlayerList[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().Colour;

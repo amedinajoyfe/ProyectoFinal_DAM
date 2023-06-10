@@ -8,6 +8,7 @@ public class StaticVariables : MonoBehaviour
     public static StaticVariables Instance { get; private set; }
 
     public List<GameObject> Players;
+    public GameObject MissionPrefab;
 
     public enum Items
     {
@@ -28,11 +29,25 @@ public class StaticVariables : MonoBehaviour
         { "Food to city", new KeyValuePair<string, Items>("City", Items.Food) },
         { "Fish to market", new KeyValuePair<string, Items>("Market", Items.Fish) },
         { "Clothes to supermarket", new KeyValuePair<string, Items>("Supermarket", Items.Clothes) },
-        { "Gold to restaurant", new KeyValuePair<string, Items>("Restaurant", Items.GoldIngot) },
+        { "Gold to market", new KeyValuePair<string, Items>("Market", Items.GoldIngot) },
         { "Food to dumpster", new KeyValuePair<string, Items>("Dumpster", Items.Food) },
         { "Apple to shopping mall", new KeyValuePair<string, Items>("ShoppingMall", Items.Apple) },
         { "Soap to city", new KeyValuePair<string, Items>("City", Items.Soap) },
         { "Apple to lake", new KeyValuePair<string, Items>("Lake", Items.Apple) },
+        { "Chip to dumpster", new KeyValuePair<string, Items>("Dumpster", Items.CasinoChip) },
+        { "Wood to vineyard", new KeyValuePair<string, Items>("Vineyard", Items.WoodPlank) },
+        { "Bolt to casino", new KeyValuePair<string, Items>("Casino", Items.Bolt) },
+        { "Bolt to shopping mall", new KeyValuePair<string, Items>("ShoppingMall", Items.Bolt) },
+        { "Apple to restaurant", new KeyValuePair<string, Items>("Restaurant", Items.Apple) },
+        { "Fish to restaurant", new KeyValuePair<string, Items>("Restaurant", Items.Fish) },
+        { "Ball to market", new KeyValuePair<string, Items>("Market", Items.Ball) },
+        { "Wood to lake", new KeyValuePair<string, Items>("Lake", Items.WoodPlank) },
+        { "Book to city", new KeyValuePair<string, Items>("City", Items.Book) },
+        { "Wood to mountains", new KeyValuePair<string, Items>("Mountains", Items.WoodPlank) },
+        { "Food to mountains", new KeyValuePair<string, Items>("Mountains", Items.Food) },
+        { "Chip to forest", new KeyValuePair<string, Items>("Forest", Items.CasinoChip) },
+        { "Book to forest", new KeyValuePair<string, Items>("Forest", Items.Book) },
+        { "Gold to shopping mall", new KeyValuePair<string, Items>("ShoppingMall", Items.GoldIngot) }
     };
 
     public Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
