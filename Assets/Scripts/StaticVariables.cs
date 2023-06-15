@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StaticVariables : MonoBehaviour
@@ -9,6 +11,7 @@ public class StaticVariables : MonoBehaviour
 
     public List<GameObject> Players;
     public GameObject MissionPrefab;
+    public GameObject VictoryFeedback;
 
     public enum Items
     {
@@ -64,6 +67,27 @@ public class StaticVariables : MonoBehaviour
         { "PANTALLA COMPLETA", FullScreenMode.ExclusiveFullScreen }
     };
 
+    public void EndGame(string Winner)
+    {
+        Debug.Log("El ganador es: " + Winner);
+        DisableButtons(false);
+        StartCoroutine(EndGameProcess());
+    }
+
+    private IEnumerator EndGameProcess()
+    {
+        VictoryFeedback.SetActive(true);
+        VictoryFeedback.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "La victoria es para el jugador " + (CurrentPlayer + 1);
+        VictoryFeedback.GetComponent<Animator>().enabled = true;
+        yield return new WaitForSeconds(1f);
+        VictoryFeedback.GetComponent<Animator>().enabled = false;
+    }
+
+    public void LeaveGame()
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
     public void DisableOutlines()
     {
         var ListOutlines = GameObject.FindGameObjectsWithTag("Outlines");
@@ -73,7 +97,7 @@ public class StaticVariables : MonoBehaviour
         }
     }
 
-    public void DisableButtons()
+    public void DisableButtons(bool Reenable = true)
     {
         var Buttons = FindObjectsOfType<Button>();
 
@@ -82,7 +106,8 @@ public class StaticVariables : MonoBehaviour
             Btn.interactable = false;
         }
 
-        StartCoroutine(ReenableButtons());
+        if(Reenable)
+            StartCoroutine(ReenableButtons());
     }
 
     private IEnumerator ReenableButtons()

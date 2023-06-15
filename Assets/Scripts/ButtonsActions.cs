@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ButtonsActions : MonoBehaviour
 {
@@ -142,13 +143,13 @@ public class ButtonsActions : MonoBehaviour
         PlayerScript PlayerWithQuest = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
         if (PlayerWithQuest.Missions.Count > 0)
         {
-            foreach(string Mission in PlayerWithQuest.Missions)
+            for(int i = 0; i < PlayerWithQuest.Missions.Count; i++)
             {
-                if(StaticVariables.Instance.Missions[Mission].Key == PlayerWithQuest.CurrPosition)
+                if(StaticVariables.Instance.Missions[PlayerWithQuest.Missions.ElementAt(i)].Key == PlayerWithQuest.CurrPosition)
                 {
-                    if (PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[Mission].Value))
+                    if (PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[PlayerWithQuest.Missions.ElementAt(i)].Value))
                     {
-                        PlayerWithQuest.AddPoints(1);
+                        PlayerWithQuest.CompleteMission(i);
                     }
                     else
                     {
@@ -197,11 +198,15 @@ public class ButtonsActions : MonoBehaviour
         
         if (PlayerToAdd.CurrPosition != "CentralPlaza")
         {
-            PlayerToAdd.AddObject(PossibleObjects[PlayerToAdd.CurrPosition]);
-            PlayerToAdd.GetObjects();
-            ObjectObtained.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(PossibleObjects[PlayerToAdd.CurrPosition].ToString());
-            StartCoroutine(AnimateObjectObtained());
-            StaticVariables.Instance.DisableButtons();
+            var result = PlayerToAdd.AddObject(PossibleObjects[PlayerToAdd.CurrPosition]);
+
+            if (result)
+            {
+                ObjectObtained.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(PossibleObjects[PlayerToAdd.CurrPosition].ToString());
+                StartCoroutine(AnimateObjectObtained());
+
+                StaticVariables.Instance.DisableButtons();
+            }
         }
         else
         {
@@ -219,5 +224,19 @@ public class ButtonsActions : MonoBehaviour
         ObjectObtained.SetBool("Appearing", true);
         yield return new WaitForSeconds(1.8f);
         ObjectObtained.SetBool("Appearing", false);
+    }
+
+    public void BackToMainScreen()
+    {
+        StaticVariables.Instance.LeaveGame();
+    }
+    public void DebugPassTurn()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().PassTurnOnCommand();
+    }
+
+    public void DebugAddPoints()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().AddPointsOnDemand();
     }
 }

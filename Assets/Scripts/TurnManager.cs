@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -69,7 +68,7 @@ public class TurnManager : MonoBehaviour
             int response;
             do
             {
-                response = PlayerList[CurrPlayer].GetComponent<PlayerScript>().AddMission(StaticVariables.Instance.Missions.ElementAt(Random.Range(0, 5)).Key);
+                response = PlayerList[CurrPlayer].GetComponent<PlayerScript>().AddMission(StaticVariables.Instance.Missions.ElementAt(Random.Range(0, StaticVariables.Instance.Missions.Count - 1)).Key);
             } while (response == -1);
 
             StaticVariables.Instance.CurrentPlayer = CurrPlayer == PlayerList.Count - 1 ? 0 : CurrPlayer += 1;
@@ -86,8 +85,10 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator AnimateTurnPass()
     {
+        ChangeTurnSign.SetActive(true);
         ChangeTurnSign.GetComponent<Animator>().SetBool("StartedAnimation", true);
         yield return new WaitForSeconds(2.06f);
         ChangeTurnSign.GetComponent<Animator>().SetBool("StartedAnimation", false);
+        ChangeTurnSign.SetActive(false);
     }
 }

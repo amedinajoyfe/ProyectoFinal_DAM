@@ -10,6 +10,7 @@ public class BootGame : MonoBehaviour
 
     [SerializeField] private Slider SliderVolume;
     [SerializeField] private GameObject ChipParent;
+    [SerializeField] private List<GameObject> Portraits;
 
     [Header("Chips")]
     [SerializeField] private List<Texture2D> Chips;
@@ -28,35 +29,75 @@ public class BootGame : MonoBehaviour
 
     private void SpawnChips(int NumPlayers)
     {
+        PlayerScript PlayerData;
         for(int i = 0; i < NumPlayers; i++)
         {
+            Portraits[i].SetActive(true);
             GameObject player = new("Player_" + (i+1));
 
             player.AddComponent<Image>();
             player.AddComponent<PlayerScript>();
+            PlayerData = player.GetComponent<PlayerScript>();
             player.GetComponent<Image>().sprite = Sprite.Create(Chips[i], new Rect(0.0f, 0.0f, Chips[i].width, Chips[i].height), new Vector2(0.5f, 0.5f));
-            player.GetComponent<PlayerScript>().Name = "Player" + (i + 1);
+            PlayerData.Name = "Player" + (i + 1);
+            PlayerData.PlayerNumber = (i + 1);
 
-            switch(i)
+            switch (i + 1)
             {
-                case 0:
-                    player.GetComponent<PlayerScript>().Colour = "Rojo";
-                    break;
                 case 1:
-                    player.GetComponent<PlayerScript>().Colour = "Azul";
+                    PlayerData.CoordinateX = 55;
+                    PlayerData.CoordinateY = -55;
                     break;
                 case 2:
-                    player.GetComponent<PlayerScript>().Colour = "Verde";
+                    PlayerData.CoordinateX = 55;
+                    PlayerData.CoordinateY = 55;
                     break;
                 case 3:
-                    player.GetComponent<PlayerScript>().Colour = "Amarillo";
+                    PlayerData.CoordinateX = -55;
+                    PlayerData.CoordinateY = -55;
+                    break;
+                case 4:
+                    PlayerData.CoordinateX = -55;
+                    PlayerData.CoordinateY = 55;
+                    break;
+                default:
+                    PlayerData.CoordinateX = 0;
+                    PlayerData.CoordinateY = 0;
+
+                    Debug.Log("Entrando en el default");
+
+                    break;
+            }
+
+            switch (i)
+            {
+                case 0:
+                    PlayerData.Colour = "Rojo";
+                    break;
+                case 1:
+                    PlayerData.Colour = "Azul";
+                    break;
+                case 2:
+                    PlayerData.Colour = "Verde";
+                    break;
+                case 3:
+                    PlayerData.Colour = "Amarillo";
+                    break;
+                case 4:
+                    PlayerData.Colour = "Marrón";
+                    break;
+                case 5:
+                    PlayerData.Colour = "Morado";
                     break;
             }
             player.transform.SetParent(ChipParent.transform);
 
             RectTransform rectTransform;
             rectTransform = player.GetComponent<RectTransform>();
-            Vector2 StartingPos = i % 2 == 0 ? new Vector2(-55, i>1 ? 55 : -55) : new Vector2(55, i > 1 ? 55 : -55); //Estoy aprendiendo a usar estos por eso hay varios
+
+            Debug.Log(PlayerData.Name + " Position: " + PlayerData.CoordinateX + ", " + PlayerData.CoordinateY);
+
+            Vector2 StartingPos = new Vector2(PlayerData.CoordinateX, PlayerData.CoordinateY);
             rectTransform.localPosition = StartingPos;
             rectTransform.sizeDelta = new Vector2(45, 45);
 
