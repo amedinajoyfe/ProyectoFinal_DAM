@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,7 +12,9 @@ public class StaticVariables : MonoBehaviour
 
     public List<GameObject> Players;
     public GameObject MissionPrefab;
+    public GameObject CardPrefab;
     public GameObject VictoryFeedback;
+    public bool Animate = true;
 
     public enum Items
     {
@@ -52,6 +55,8 @@ public class StaticVariables : MonoBehaviour
         { "Book to forest", new KeyValuePair<string, Items>("Forest", Items.Book) },
         { "Gold to shopping mall", new KeyValuePair<string, Items>("ShoppingMall", Items.GoldIngot) }
     };
+
+    public Dictionary<string, Action> Cards = new Dictionary<string, Action>();
 
     public Dictionary<string, int[]> ScreenResolution = new Dictionary<string, int[]> {
         { "1920 X 1080", new int[]{1920,1080} },
@@ -97,7 +102,7 @@ public class StaticVariables : MonoBehaviour
         }
     }
 
-    public void DisableButtons(bool Reenable = true)
+    public void DisableButtons(bool Reenable = true, float time = 1.85f)
     {
         var Buttons = FindObjectsOfType<Button>();
 
@@ -107,14 +112,14 @@ public class StaticVariables : MonoBehaviour
         }
 
         if(Reenable)
-            StartCoroutine(ReenableButtons());
+            StartCoroutine(ReenableButtons(time));
     }
 
-    private IEnumerator ReenableButtons()
+    private IEnumerator ReenableButtons(float time)
     {
         var Buttons = FindObjectsOfType<Button>();
 
-        yield return new WaitForSeconds(1.85f);
+        yield return new WaitForSeconds(time);
 
         foreach (Button Btn in Buttons)
         {
@@ -146,5 +151,10 @@ public class StaticVariables : MonoBehaviour
         {
             Instance = this;
         }
+
+        Cards.Add("ExtraPoint", () => ButtonsActions.Instance.DebugAddPoints());
+        Cards.Add("ExtraTurn", () => ButtonsActions.Instance.DebugAddTurn());
+        Cards.Add("RemoveItems", () => ButtonsActions.Instance.DebugRemoveAllItems());
+        Cards.Add("RemoveQuests", () => ButtonsActions.Instance.DebugRemoveAllMissions());
     }
 }

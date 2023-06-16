@@ -10,6 +10,6 @@ public class ClickSquare : MonoBehaviour
         PlayerToMove.Move(objeto.transform.position, objeto.transform.parent.name);
         StaticVariables.Instance.DisableOutlines();
         PlayerToMove.IsMoving = false;
-        //TurnManager.Instance.PassTurn(PlayerToMove);
+        TurnManager.Instance.PassTurn(PlayerToMove);
     }
 }

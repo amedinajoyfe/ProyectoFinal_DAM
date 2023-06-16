@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class ButtonsActions : MonoBehaviour
 {
     //Los comentarios los pongo en inglés porque me apetece igual que los nombres
+    public static ButtonsActions Instance;
+
     [SerializeField] private TMP_Text FeedbackScreenMode;
     [SerializeField] private TMP_Text FeedbackScreenResolution;
     [SerializeField] private GameObject ChatCanvas;
@@ -27,7 +29,19 @@ public class ButtonsActions : MonoBehaviour
     public Dictionary<string, List<GameObject>> Squares;
     public Dictionary<string, StaticVariables.Items> PossibleObjects;
 
-    private void Start()
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+        private void Start()
     {
         Squares = new Dictionary<string, List<GameObject>> {
         { "CentralPlaza", new List<GameObject>{EdificiosList[1], EdificiosList[2], EdificiosList[3], EdificiosList[4], EdificiosList[7] } },
@@ -141,6 +155,7 @@ public class ButtonsActions : MonoBehaviour
     public void CompleteMission()
     {
         PlayerScript PlayerWithQuest = StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>();
+        StaticVariables.Instance.DisableOutlines();
         if (PlayerWithQuest.Missions.Count > 0)
         {
             for(int i = 0; i < PlayerWithQuest.Missions.Count; i++)
@@ -203,9 +218,8 @@ public class ButtonsActions : MonoBehaviour
             if (result)
             {
                 ObjectObtained.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(PossibleObjects[PlayerToAdd.CurrPosition].ToString());
-                StartCoroutine(AnimateObjectObtained());
-
-                StaticVariables.Instance.DisableButtons();
+                if(StaticVariables.Instance.Animate)
+                    StartCoroutine(AnimateObjectObtained());
             }
         }
         else
@@ -219,8 +233,14 @@ public class ButtonsActions : MonoBehaviour
         StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().MissionBoard();
     }
 
+    public void ToggleCardsBoard()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().CardsBoard();
+    }
+
     private IEnumerator AnimateObjectObtained()
     {
+        StaticVariables.Instance.DisableButtons();
         ObjectObtained.SetBool("Appearing", true);
         yield return new WaitForSeconds(1.8f);
         ObjectObtained.SetBool("Appearing", false);
@@ -230,13 +250,45 @@ public class ButtonsActions : MonoBehaviour
     {
         StaticVariables.Instance.LeaveGame();
     }
+    public void ReadCard(GameObject card)
+    {
+        StaticVariables.Instance.Cards[card.GetComponent<Image>().sprite.ToString().Split()[0]].Invoke();
+        ToggleCardsBoard();
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().UseCard(StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().Cards.IndexOf(card.GetComponent<Image>().sprite.ToString().Split()[0]));
+    }
+
+    #region DebugButtons
     public void DebugPassTurn()
     {
         StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().PassTurnOnCommand();
     }
-
+    public void DebugAddTurn()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().AddTurnOnCommand();
+    }
     public void DebugAddPoints()
     {
         StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().AddPointsOnDemand();
     }
+    public void DebugRemovePoints()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().RemovePointsOnDemand();
+    }
+    public void DebugToggleTurnPass()
+    {
+        TurnManager.Instance.DoTurnPass = !TurnManager.Instance.DoTurnPass;
+    }
+    public void DebugToggleAnimations()
+    {
+        StaticVariables.Instance.Animate = !StaticVariables.Instance.Animate;
+    }
+    public void DebugRemoveAllItems()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().RemoveAllObjects();
+    }
+    public void DebugRemoveAllMissions()
+    {
+        StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().RemoveAllMissions();
+    }
+    #endregion
 }

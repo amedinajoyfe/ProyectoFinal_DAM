@@ -63,9 +63,6 @@ public class BootGame : MonoBehaviour
                 default:
                     PlayerData.CoordinateX = 0;
                     PlayerData.CoordinateY = 0;
-
-                    Debug.Log("Entrando en el default");
-
                     break;
             }
 
@@ -94,8 +91,6 @@ public class BootGame : MonoBehaviour
 
             RectTransform rectTransform;
             rectTransform = player.GetComponent<RectTransform>();
-
-            Debug.Log(PlayerData.Name + " Position: " + PlayerData.CoordinateX + ", " + PlayerData.CoordinateY);
 
             Vector2 StartingPos = new Vector2(PlayerData.CoordinateX, PlayerData.CoordinateY);
             rectTransform.localPosition = StartingPos;

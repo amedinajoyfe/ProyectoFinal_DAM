@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8116015798510859282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9139119517817770850}
+  - component: {fileID: 2483125704054317449}
+  - component: {fileID: 4941806571209066902}
+  - component: {fileID: 4451545677017618697}
+  - component: {fileID: 2238452223701187694}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9139119517817770850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116015798510859282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 503.4616, y: 274.22858, z: -10.081964}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2483125704054317449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116015798510859282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a330375666ded4fa301acb988bcc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FeedbackScreenMode: {fileID: 0}
+  FeedbackScreenResolution: {fileID: 0}
+  ChatCanvas: {fileID: 0}
+  Menu: {fileID: 0}
+  MenuExit: {fileID: 0}
+  MenuOptions: {fileID: 0}
+  ObjectObtained: {fileID: 0}
+  GameSong: {fileID: 0}
+  EdificiosList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &4941806571209066902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116015798510859282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc4c1337da231e4cabd8a6a09322f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Players: []
+  MissionPrefab: {fileID: 4077262009630403644, guid: 32bc16d2f9a119649bbeb2581df72fcd, type: 3}
+  CardPrefab: {fileID: 4790782045247559486, guid: 907ec531c11103e46bf54ff3e0c3f6d1, type: 3}
+  VictoryFeedback: {fileID: 0}
+  Animate: 1
+--- !u!114 &4451545677017618697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116015798510859282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c5c51200ad6ee478c1b995d5f1b691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2238452223701187694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116015798510859282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d217e1928344941bf954fa8c68dd57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoTurnPass: 1
+  ScriptBoot: {fileID: 0}
+  ChangeTurnSign: {fileID: 0}
