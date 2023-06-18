@@ -122,7 +122,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (Cards.Count > 2)
         {
-            Debug.Log("You already have missions");
+            Debug.Log("You already have cards");
             return -2;
         }
 
@@ -253,9 +253,7 @@ public class PlayerScript : MonoBehaviour
             if (MissionPrefabs.Count > 2)
                 MissionPrefabs.ElementAt(missionIndex + 1).GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
         }
-
-        if (StaticVariables.Instance.Animate)
-            StartCoroutine(CompleteMissionAnim(missionIndex));
+        StartCoroutine(CompleteMissionAnim(missionIndex));
 
         RemoveObject(StaticVariables.Instance.Missions[Missions.ElementAt(missionIndex)].Value);
 
@@ -266,13 +264,16 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator CompleteMissionAnim(int missionIndex)
     {
-        MissionPrefabs.ElementAt(missionIndex).transform.SetParent(GameObject.Find("Canvas").transform);
-        MissionPrefabs.ElementAt(missionIndex).SetActive(true);
-        MissionPrefabs.ElementAt(missionIndex).GetComponent<Animator>().enabled = true;
+        if (StaticVariables.Instance.Animate)
+        {
+            MissionPrefabs.ElementAt(missionIndex).transform.SetParent(GameObject.Find("Canvas").transform);
+            MissionPrefabs.ElementAt(missionIndex).SetActive(true);
+            MissionPrefabs.ElementAt(missionIndex).GetComponent<Animator>().enabled = true;
 
-        StaticVariables.Instance.DisableButtons(true, 2.5f);
+            StaticVariables.Instance.DisableButtons(true, 2.5f);
 
-        yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.5f);
+        }
 
         Destroy(MissionPrefabs.ElementAt(missionIndex));
         MissionPrefabs.RemoveAt(missionIndex);
@@ -299,21 +300,23 @@ public class PlayerScript : MonoBehaviour
                 CardPrefabs.ElementAt(cardIndex + 1).GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
         }
 
-        if (StaticVariables.Instance.Animate)
-            StartCoroutine(UseCardAnim(cardIndex));
+        StartCoroutine(UseCardAnim(cardIndex));
 
         Cards.RemoveAt(cardIndex);
     }
 
     public IEnumerator UseCardAnim(int cardIndex)
     {
-        CardPrefabs.ElementAt(cardIndex).transform.SetParent(GameObject.Find("Canvas").transform);
-        CardPrefabs.ElementAt(cardIndex).SetActive(true);
-        CardPrefabs.ElementAt(cardIndex).GetComponent<Animator>().enabled = true;
+        if (StaticVariables.Instance.Animate)
+        {
+            CardPrefabs.ElementAt(cardIndex).transform.SetParent(GameObject.Find("Canvas").transform);
+            CardPrefabs.ElementAt(cardIndex).SetActive(true);
+            CardPrefabs.ElementAt(cardIndex).GetComponent<Animator>().enabled = true;
 
-        StaticVariables.Instance.DisableButtons(true, 2.5f);
+            StaticVariables.Instance.DisableButtons(true, 2.5f);
 
-        yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.5f);
+        }
 
         Destroy(CardPrefabs.ElementAt(cardIndex));
         CardPrefabs.RemoveAt(cardIndex);

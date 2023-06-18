@@ -41,7 +41,7 @@ public class ButtonsActions : MonoBehaviour
         }
     }
 
-        private void Start()
+    private void Start()
     {
         Squares = new Dictionary<string, List<GameObject>> {
         { "CentralPlaza", new List<GameObject>{EdificiosList[1], EdificiosList[2], EdificiosList[3], EdificiosList[4], EdificiosList[7] } },
@@ -258,6 +258,11 @@ public class ButtonsActions : MonoBehaviour
     }
 
     #region DebugButtons
+    public void Teleport()
+    {
+        StaticVariables.Instance.EnableOutlines();
+        StaticVariables.Instance.DisableButtons(false);
+    }
     public void DebugPassTurn()
     {
         StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().PassTurnOnCommand();

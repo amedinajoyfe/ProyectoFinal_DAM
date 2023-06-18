@@ -15,7 +15,7 @@ public class BootGame : MonoBehaviour
     [Header("Chips")]
     [SerializeField] private List<Texture2D> Chips;
 
-    void Awake()
+    void Start()
     {
         //StaticVariables.Instance.Players = new List<GameObject>();
 

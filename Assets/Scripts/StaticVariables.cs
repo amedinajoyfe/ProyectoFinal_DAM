@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,11 +10,13 @@ using UnityEngine.UI;
 public class StaticVariables : MonoBehaviour
 {
     public static StaticVariables Instance { get; private set; }
-
+    
     public List<GameObject> Players;
+
     public GameObject MissionPrefab;
     public GameObject CardPrefab;
     public GameObject VictoryFeedback;
+
     public bool Animate = true;
 
     public enum Items
@@ -93,6 +96,14 @@ public class StaticVariables : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
+    public void EnableOutlines()
+    {
+        foreach (GameObject outline in ButtonsActions.Instance.EdificiosList)
+        {
+            outline.SetActive(true);
+        }
+    }
+
     public void DisableOutlines()
     {
         var ListOutlines = GameObject.FindGameObjectsWithTag("Outlines");
@@ -115,7 +126,7 @@ public class StaticVariables : MonoBehaviour
             StartCoroutine(ReenableButtons(time));
     }
 
-    private IEnumerator ReenableButtons(float time)
+    public IEnumerator ReenableButtons(float time)
     {
         var Buttons = FindObjectsOfType<Button>();
 
@@ -154,7 +165,8 @@ public class StaticVariables : MonoBehaviour
 
         Cards.Add("ExtraPoint", () => ButtonsActions.Instance.DebugAddPoints());
         Cards.Add("ExtraTurn", () => ButtonsActions.Instance.DebugAddTurn());
-        Cards.Add("RemoveItems", () => ButtonsActions.Instance.DebugRemoveAllItems());
-        Cards.Add("RemoveQuests", () => ButtonsActions.Instance.DebugRemoveAllMissions());
+        //Cards.Add("RemoveItems", () => ButtonsActions.Instance.DebugRemoveAllItems());
+        //Cards.Add("RemoveQuests", () => ButtonsActions.Instance.DebugRemoveAllMissions());
+        Cards.Add("Teleport", () => ButtonsActions.Instance.Teleport());
     }
 }

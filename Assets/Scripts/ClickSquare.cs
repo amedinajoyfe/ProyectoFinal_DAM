@@ -11,5 +11,7 @@ public class ClickSquare : MonoBehaviour
         StaticVariables.Instance.DisableOutlines();
         PlayerToMove.IsMoving = false;
         TurnManager.Instance.PassTurn(PlayerToMove);
+
+        StartCoroutine(StaticVariables.Instance.ReenableButtons(0f));
     }
 }

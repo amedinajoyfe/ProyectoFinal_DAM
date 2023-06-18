@@ -76,14 +76,13 @@ public class TurnManager : MonoBehaviour
                 } while (response == -1);
                 do
                 {
-                    response = PlayerList[CurrPlayer].GetComponent<PlayerScript>().AddCard(StaticVariables.Instance.Cards.ElementAt(Random.Range(0, StaticVariables.Instance.Cards.Count - 1)).Key);
+                    response = PlayerList[CurrPlayer].GetComponent<PlayerScript>().AddCard(StaticVariables.Instance.Cards.ElementAt(Random.Range(0, StaticVariables.Instance.Cards.Count)).Key);
                 } while (response == -1);
 
                 StaticVariables.Instance.CurrentPlayer = CurrPlayer == PlayerList.Count - 1 ? 0 : CurrPlayer += 1;
                 PlayerList[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().TurnsLeft = RollActions();
                 ChangeTurnSign.transform.GetChild(0).GetComponent<TMP_Text>().text = "Turno del jugador " + PlayerList[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().Colour;
-                if(StaticVariables.Instance.Animate)
-                    StartCoroutine(AnimateTurnPass());
+                StartCoroutine(AnimateTurnPass());
             }
             else
             {
@@ -94,11 +93,14 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator AnimateTurnPass()
     {
-        StaticVariables.Instance.DisableButtons();
-        ChangeTurnSign.SetActive(true);
-        ChangeTurnSign.GetComponent<Animator>().SetBool("StartedAnimation", true);
-        yield return new WaitForSeconds(2.06f);
-        ChangeTurnSign.GetComponent<Animator>().SetBool("StartedAnimation", false);
-        ChangeTurnSign.SetActive(false);
+        if (StaticVariables.Instance.Animate)
+        {
+            StaticVariables.Instance.DisableButtons();
+            ChangeTurnSign.SetActive(true);
+            ChangeTurnSign.GetComponent<Animator>().SetBool("StartedAnimation", true);
+            yield return new WaitForSeconds(2.06f);
+            ChangeTurnSign.GetComponent<Animator>().SetBool("StartedAnimation", false);
+            ChangeTurnSign.SetActive(false);
+        }
     }
 }
