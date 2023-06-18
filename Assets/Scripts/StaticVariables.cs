@@ -17,6 +17,8 @@ public class StaticVariables : MonoBehaviour
     public GameObject CardPrefab;
     public GameObject VictoryFeedback;
 
+    public AudioSource WinSound;
+
     public bool Animate = true;
 
     public enum Items
@@ -79,6 +81,7 @@ public class StaticVariables : MonoBehaviour
     {
         Debug.Log("El ganador es: " + Winner);
         DisableButtons(false);
+        WinSound.PlayDelayed(0.2f);
         StartCoroutine(EndGameProcess());
     }
 

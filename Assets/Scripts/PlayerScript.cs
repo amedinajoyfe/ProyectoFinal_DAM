@@ -300,7 +300,7 @@ public class PlayerScript : MonoBehaviour
                 CardPrefabs.ElementAt(cardIndex + 1).GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
         }
 
-        ButtonsActions.Instance.UseCard.Play();
+        ButtonsActions.Instance.UseCard.PlayDelayed(0.2f);
         StartCoroutine(UseCardAnim(cardIndex));
 
         Cards.RemoveAt(cardIndex);

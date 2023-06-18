@@ -183,7 +183,7 @@ public class ButtonsActions : MonoBehaviour
                     if (PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[PlayerWithQuest.Missions.ElementAt(i)].Value))
                     {
                         PlayerWithQuest.CompleteMission(i);
-                        MissionComplete.Play();
+                        MissionComplete.PlayDelayed(0.2f);
                     }
                     else
                     {
