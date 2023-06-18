@@ -18,7 +18,14 @@ public class ButtonsActions : MonoBehaviour
     [SerializeField] private GameObject MenuExit;
     [SerializeField] private GameObject MenuOptions;
 
+    [SerializeField] private GameObject[] MissionsBoard;
+    [SerializeField] private GameObject[] CardsBoard;
+
     [SerializeField] private Animator ObjectObtained;
+
+    public AudioSource ClickButton;
+    public AudioSource MissionComplete;
+    public AudioSource UseCard;
 
     public AudioSource GameSong;
 
@@ -77,25 +84,36 @@ public class ButtonsActions : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Menu.activeSelf)
+            if(MissionsBoard.Any(Board => Board.activeSelf))
+            {
+                MissionsBoard.First(Board => Board.activeSelf).SetActive(false);
+            }
+            else if (CardsBoard.Any(Board => Board.activeSelf))
+            {
+                CardsBoard.First(Board => Board.activeSelf).SetActive(false);
+            }
+            else if(Menu.activeSelf)
             {
                 Menu.SetActive(false);
+                ClickButton.Play();
                 return;
             }
             else if(MenuExit.activeSelf)
             {
                 MenuExit.SetActive(false);
+                ClickButton.Play();
             }
             else if(MenuOptions.activeSelf)
             {
                 MenuOptions.SetActive(false);
+                ClickButton.Play();
             }
             else
             {
                 Menu.SetActive(true);
+                ClickButton.Play();
                 return;
             }
-            Menu.SetActive(true);
         }
     }
 
@@ -165,6 +183,7 @@ public class ButtonsActions : MonoBehaviour
                     if (PlayerWithQuest.GetObjects().Contains(StaticVariables.Instance.Missions[PlayerWithQuest.Missions.ElementAt(i)].Value))
                     {
                         PlayerWithQuest.CompleteMission(i);
+                        MissionComplete.Play();
                     }
                     else
                     {
@@ -248,6 +267,7 @@ public class ButtonsActions : MonoBehaviour
 
     public void BackToMainScreen()
     {
+        ClickButton.Play();
         StaticVariables.Instance.LeaveGame();
     }
     public void ReadCard(GameObject card)
@@ -255,6 +275,11 @@ public class ButtonsActions : MonoBehaviour
         StaticVariables.Instance.Cards[card.GetComponent<Image>().sprite.ToString().Split()[0]].Invoke();
         ToggleCardsBoard();
         StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().UseCard(StaticVariables.Instance.Players[StaticVariables.Instance.CurrentPlayer].GetComponent<PlayerScript>().Cards.IndexOf(card.GetComponent<Image>().sprite.ToString().Split()[0]));
+    }
+
+    public void PlayButtonSound()
+    {
+        ClickButton.Play();
     }
 
     #region DebugButtons

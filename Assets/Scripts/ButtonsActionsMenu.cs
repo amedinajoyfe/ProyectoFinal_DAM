@@ -11,6 +11,8 @@ public class ButtonsActionsMenu : MonoBehaviour
 
     public AudioSource MenuSong;
 
+    public AudioSource ClickButton;
+
     private int PosMode = 0;
     private int PosRes = 0;
     public void ChangeWindowModeLeft()
@@ -69,5 +71,10 @@ public class ButtonsActionsMenu : MonoBehaviour
     public void GoToPlayScene()
     {
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void PlayButtonSound()
+    {
+        ClickButton.Play();
     }
 }
