@@ -65,9 +65,14 @@ public class ButtonsActionsMenu : MonoBehaviour
 #endif
     }
 
+    public void LogOut()
+    {
+        SceneManager.LoadScene("LoginScene");
+    }
+
     public void GoToPlayScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("SeleccionPersonajes");
     }
 
     public void PlayButtonSound()

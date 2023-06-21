@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
