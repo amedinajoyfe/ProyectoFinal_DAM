@@ -122,7 +122,7 @@ public class ButtonsActions : MonoBehaviour
         PosMode = PosMode == 0 ? 2 : PosMode -= 1; //If pos equal to 0 then go to 2, else subtract 1
         FeedbackScreenMode.text = StaticVariables.Instance.ScreenMode.ElementAt(PosMode).Key;
 #if !UNITY_EDITOR
-        Screen.fullScreenMode = ScreenMode.ElementAt(PosMode).Value;
+        Screen.fullScreenMode = StaticVariables.Instance.ScreenMode.ElementAt(PosMode).Value;
 #endif
     }
 
@@ -131,7 +131,7 @@ public class ButtonsActions : MonoBehaviour
         PosMode = PosMode == 2 ? 0 : PosMode += 1; //If pos equal to 2 then go to 0, else add 1
         FeedbackScreenMode.text = StaticVariables.Instance.ScreenMode.ElementAt(PosMode).Key;
 #if !UNITY_EDITOR
-        Screen.fullScreenMode = ScreenMode.ElementAt(PosMode).Value;
+        Screen.fullScreenMode = StaticVariables.Instance.ScreenMode.ElementAt(PosMode).Value;
 #endif
     }
 
@@ -140,7 +140,7 @@ public class ButtonsActions : MonoBehaviour
         PosRes = PosRes == 0 ? 4 : PosRes -= 1;
         FeedbackScreenResolution.text = StaticVariables.Instance.ScreenResolution.ElementAt(PosRes).Key;
 #if !UNITY_EDITOR
-        Screen.SetResolution(ScreenResolution.ElementAt(PosRes).Value[0], ScreenResolution.ElementAt(PosRes).Value[1], Screen.fullScreenMode);
+        Screen.SetResolution(StaticVariablesMenu.Instance.ScreenResolution.ElementAt(PosRes).Value[0], StaticVariables.Instance.ScreenResolution.ElementAt(PosRes).Value[1], Screen.fullScreenMode);
 #endif
     }
 
@@ -149,7 +149,7 @@ public class ButtonsActions : MonoBehaviour
         PosRes = PosRes == 4 ? 0 : PosRes += 1;
         FeedbackScreenResolution.text = StaticVariables.Instance.ScreenResolution.ElementAt(PosRes).Key;
 #if !UNITY_EDITOR
-        Screen.SetResolution(ScreenResolution.ElementAt(PosRes).Value[0], ScreenResolution.ElementAt(PosRes).Value[1], Screen.fullScreenMode);
+        Screen.SetResolution(StaticVariablesMenu.Instance.ScreenResolution.ElementAt(PosRes).Value[0], StaticVariables.Instance.ScreenResolution.ElementAt(PosRes).Value[1], Screen.fullScreenMode);
 #endif
     }
 
