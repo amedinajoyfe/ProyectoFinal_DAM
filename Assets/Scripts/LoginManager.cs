@@ -71,6 +71,12 @@ public class LoginManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        Screen.SetResolution(1920, 1080, FullScreenMode.MaximizedWindow);
+    }
+
     public void EnterAsGuest()
     {
         SceneManager.LoadScene("MainMenuScene");

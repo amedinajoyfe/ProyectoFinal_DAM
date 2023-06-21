@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 public class RegisterManager : MonoBehaviour
 {
-
-    
     public string phpURL = "http://localhost/Querys/Register.php";
 
     public InputField inputNick;

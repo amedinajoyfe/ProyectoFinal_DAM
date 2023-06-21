@@ -17,10 +17,6 @@ public class BootGame : MonoBehaviour
 
     void Start()
     {
-        //StaticVariables.Instance.Players = new List<GameObject>();
-
-        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.MaximizedWindow);
         SpawnChips(StaticVariablesPlayerSelect.Players); //This will count number of players
         StartMusic();
         BootFinished();
